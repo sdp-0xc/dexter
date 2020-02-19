@@ -6,7 +6,9 @@ import time
 
 app = flask.Flask(__name__, template_folder = "html")
 
-# Connect to the EV3 as a client
+
+# Connect to the EV3 as a client on startup
+# TODO: Move this to connect on click of the connect button on the homepage
 def connect():
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -21,11 +23,13 @@ def connect():
 sock = connect()
 
 
+# Home page of the app
 @app.route("/")
 def home():
     return flask.render_template("index.html")
 
 
+# Gets request from the UI 
 @app.route("/send", methods=["POST"])
 def get_request():
     if flask.request.method == 'POST':
@@ -35,7 +39,7 @@ def get_request():
     return("Sent")
 
 
-# Send the command to the client
+# Send the command to EV3
 def on_press(key):
     # If left is click send left command, if right hten send right comm
     if (str(key) == 'left'):
