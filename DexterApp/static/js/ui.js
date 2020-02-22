@@ -14,6 +14,7 @@ const xhttp = new XMLHttpRequest();
 
 // Display available functionality when connection is established
 connect.addEventListener('click', () => {
+  startConnection();
   const initialDisplay = document.getElementById('initialDisplay');
   const loading = document.getElementById('loading');
 
@@ -32,7 +33,7 @@ connect.addEventListener('click', () => {
     loading.classList.add('d-none');
     manualControlBody.classList.remove('d-none');
     navigation.classList.remove('d-none');
-  }, 2000);
+  }, 500);
 });
 
 // Event Listeners for buttons in manual control
@@ -97,7 +98,6 @@ document.addEventListener('keydown', e => {
 
 // Sends JSON object with 'command' field. 'command' is string that indicates direction of movement.
 function sendCommand(direction) {
-  // TO DO: ADD URL
   const url = '/send';
 
   xhttp.open('POST', url, true);
@@ -106,6 +106,17 @@ function sendCommand(direction) {
   const data = {
     command: direction
   };
+  xhttp.send(JSON.stringify(data));
+}
 
+function startConnection() {
+  const url = '/connect';
+
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+
+  const data = {
+    command: "connect"
+  };
   xhttp.send(JSON.stringify(data));
 }
