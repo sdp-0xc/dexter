@@ -20,6 +20,196 @@
     <div class="card border-dark bg-light" id="menu">
       <!-- Top logo image -->
       <img class="card-img-top" id="logo" src="../img/dexter.png" />
+	  
+	  <!-- Navigation bar for mobile version while using a function -->
+
+      <nav
+        id="mobileNav"
+        class="navbar navbar-light bg-light d-none border-top border-dark"
+      >
+        <div class="col-md-9">
+          <ul class="navbar-nav">
+            <div class="row">
+              <li class="nav-item col-md-4">
+                <div class="form-group">
+                  <button id = manualControlButton class="btn btn-block btn-lg btn-outline-primary">
+                    <svg
+                      class="bi bi-wrench"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M2.102 4.223A3.004 3.004 0 005 8c.27 0 .532-.036.78-.103l6.342 6.252A3.003 3.003 0 0015 18a3 3 0 10-.851-5.878L7.897 5.781A3.004 3.004 0 004.223 2.1l2.141 2.142L6 6l-1.757.364-2.141-2.141zm13.37 9.019L15 13l-.471.242-.529.026-.287.445-.445.287-.026.529L13 15l.242.471.026.529.445.287.287.445.529.026L15 17l.471-.242.529-.026.287-.445.445-.287.026-.529L17 15l-.242-.471-.026-.529-.445-.287-.287-.445-.529-.026z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Manual Control
+                  </button>
+                </div>
+              </li>
+              <li class="nav-item col-md-4">
+                <div class="form-group">
+                  <button class="btn btn-block btn-lg btn-outline-primary">
+                    <svg
+                      version="1.0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 392.000000 381.000000"
+                      preserveAspectRatio="xMidYMid meet"
+                    >
+                      <metadata>
+                        Created by potrace 1.15, written by Peter Selinger
+                        2001-2017
+                      </metadata>
+                      <g
+                        transform="translate(0.000000,381.000000) scale(0.100000,-0.100000)"
+                        fill="currentColor"
+                        stroke="none"
+                      >
+                        <path
+                          d="M992 3623 c-459 -789 -931 -1618 -925 -1623 7 -6 958 -555 2247
+                      -1296 l398 -229 -1141 -3 -1141 -2 0 -50 0 -50 1220 0 c747 0 1220 4 1220 9 0
+                      5 216 384 480 842 265 457 482 836 483 841 1 6 -209 133 -468 282 -744 431
+                      -2288 1322 -2312 1335 -20 10 -25 6 -61 -56z m882 -648 c410 -236 745 -433
+                      746 -437 0 -3 -171 -303 -380 -665 -277 -478 -386 -658 -398 -657 -20 1 -1496
+                      850 -1500 863 -2 6 514 911 755 1324 3 4 11 7 18 5 7 -2 348 -196 759 -433z
+                      m1450 -839 c125 -72 230 -136 233 -142 3 -8 -742 -1313 -761 -1331 -4 -5 -734
+                      414 -754 432 -11 10 58 135 358 656 205 354 378 654 386 666 14 22 14 22 161
+                      -64 82 -47 251 -144 377 -217z"
+                        />
+                      </g>
+                    </svg>
+                    Erase
+                  </button>
+                </div>
+              </li>
+              <li class="nav-item col-md-4">
+                <div class="form-group">
+                  <button class="btn btn-block btn-lg btn-outline-primary">
+                    <svg
+                      class="bi bi-graph-up"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M2 2h1v16H2V2zm1 15h15v1H3v-1z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.39 6.312l-4.349 5.437L9 8.707l-3.646 3.647-.708-.708L9 7.293l2.959 2.958 3.65-4.563.781.624z"
+                        clip-rule="evenodd"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        d="M12 5.5a.5.5 0 01.5-.5h4a.5.5 0 01.5.5v4a.5.5 0 01-1 0V6h-3.5a.5.5 0 01-.5-.5z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Graph
+                  </button>
+                </div>
+              </li>
+              <li class="nav-item col-md-4">
+                <div class="form-group">
+                  <button class="btn btn-block btn-lg btn-outline-primary">
+                    <svg
+                      class="bi bi-columns"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M17 4H3v12h14V4zM3 3a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V4a1 1 0 00-1-1H3z"
+                        clip-rule="evenodd"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        d="M9.5 16V4h1v12h-1zm0-8H3V7h6.5v1zm7.5 5h-6.5v-1H17v1z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Table
+                  </button>
+                </div>
+              </li>
+              <li class="nav-item col-md-4">
+                <div class="form-group">
+                  <button class="btn btn-block btn-lg btn-outline-primary">
+                    <svg
+                      class="bi bi-image"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.002 4h-12a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1V5a1 1 0 00-1-1zm-12-1a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2h-12z"
+                        clip-rule="evenodd"
+                      />
+                      <path
+                        d="M12.648 9.646a.5.5 0 01.577-.093l3.777 1.947V16h-14v-2l2.646-2.354a.5.5 0 01.63-.062l2.66 1.773 3.71-3.71z"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        d="M6.502 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Photo
+                  </button>
+                </div>
+				
+              </li>
+			  <li class="nav-item col-md-4">
+                <div class="form-group">
+                  <button id = "disconnect" class="btn btn-block btn-lg btn-outline-primary">
+                    <svg
+
+					  class = "bi bi-disconnect"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                    </svg>					
+                    Disconnect
+                  </button>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </nav>
+	  
+	  
+	  <nav id='cssmenu' class = "d-none">
+		<ul>
+			<li class='active has-sub'><a href='#'><span>Functions</span></a>
+				<ul>
+					<li class='has-sub'><a href='#'><span>Manual Control</span></a></li>
+					<li class='has-sub'><a href='#'><span>Erase</span></a></li>
+					<li class='has-sub'><a href='#'><span>Graph</span></a></li>
+					<li class='has-sub'><a href='#'><span>Table</span></a></li>
+					<li class='has-sub'><a href='#'><span>Photo</span></a></li>
+					
+				</ul>
+			</li>
+			<li><a href='#'><span>Help</span></a></li>
+			<li><a href='#'><span>About</span></a></li>
+			<li><a href='#'><span>Disconnect</span></a></li>
+		</ul>
+	  </nav>
 
       <!-- Navigation bar with tabs at the top -->
       <ul id="navigation" class="nav nav-tabs d-none">
@@ -127,7 +317,7 @@
             Table
           </a>
         </li>
-        <li class="nav-item">
+		<li class="nav-item">
           <a
             class="nav-link disabled"
             href="#"
@@ -159,10 +349,27 @@
             Photo
           </a>
         </li>
+		<li class="nav-item">
+          <a class="nav-link disabled " href="#">
+            <svg
+              class="bi bi-disconnect"
+              width="1em"
+              height="1em"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+			  
+            >
+            </svg>
+            Disconnect
+          </a>
+        </li>
       </ul>
 
       <!-- Holder for body of any tab -->
-      <div class="d-flex card-body justify-content-center align-items-center">
+      <div
+        class="d-flex card-body justify-content-center align-items-center border-top border-dark"
+      >
         <div class="container">
           <div id="initialDisplay">
             <div class="row justify-content-center align-items-center">
@@ -203,6 +410,7 @@
                 Connect
               </button>
             </div>
+			
           </div>
 
           <!-- Loading spinner -->
@@ -217,12 +425,14 @@
           </div>
 
           <!--  -->
+		  
           <div id="manualControlBody" class="d-none">
             <div class="row justify-content-center align-items-center">
               <button
                 id="upLeft"
                 type="button"
                 class="btn btn-dark border-light"
+                style="border-radius: 10px 0 0 0;"
               >
                 <svg
                   class="bi bi-arrow-up-left"
@@ -269,6 +479,7 @@
                 id="upRight"
                 type="button"
                 class="btn btn-dark border-light"
+                style="border-radius: 0 10px 0 0;"
               >
                 <svg
                   class="bi bi-arrow-up-right"
@@ -360,6 +571,7 @@
                 id="downLeft"
                 type="button"
                 class="btn btn-dark border-light"
+                style="border-radius: 0 0 0 10px;"
               >
                 <svg
                   class="bi bi-arrow-down-left"
@@ -403,9 +615,10 @@
                 </svg>
               </button>
               <button
-                id="downLeft"
+                id="downRight"
                 type="button"
                 class="btn btn-dark border-light"
+                style="border-radius: 0 0 10px 0;"
               >
                 <svg
                   class="bi bi-arrow-down-right"
@@ -428,6 +641,7 @@
                 </svg>
               </button>
             </div>
+
           </div>
         </div>
       </div>
