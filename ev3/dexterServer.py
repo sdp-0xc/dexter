@@ -3,34 +3,29 @@ import socket
 import sys
 import time
 
+# CONSTANTS
+TIME = 0.5
+SPEED = 500
+KEYBOARD_SERVER_ADDRESS = ('192.168.105.100', 8002)
+
+# get motors
 motor_A = ev3.LargeMotor('outA')
 motor_B = ev3.LargeMotor('outB')
 motor_C = ev3.LargeMotor('outC')
 # ts1 = ev3.TouchSensor("in1")
 # ts2 = ev3.TouchSensor("in2")
-
-if (not (motor_A.connected or motor_B.connected)):
+if (not (motor_A.connected or motor_B.connected or motor_C.connected)):
 	print("please connect motors")
 	exit()
 
 
-def move_hor(speed,time):
+# movement functions
+def move_left(speed, time):
     motor_A.run_timed(speed_sp=speed, time_sp=1000*time)
     motor_B.run_timed(speed_sp=speed, time_sp=1000*time)
 
-
-def move_vert(speed, time):
+def move_up(speed, time):
     motor_C.run_timed(speed_sp=speed, time_sp=1000*time)
-
-
-def move_diag(speed_h, speed_v, time):
-	motor_A.run_timed(speed_sp=speed, time_sp=1000*time)
-    motor_B.run_timed(speed_sp=speed, time_sp=1000*time)
-	motor_C.run_timed(speed_sp=speed, time_sp=1000*time)
-
-TIME = 0.5
-SPEED = 500
-KEYBOARD_SERVER_ADDRESS = ('192.168.105.100', 8002)
 
 
 # start listening for keyboard commands from client
@@ -47,28 +42,43 @@ while True:
 	connection, client_address = sock.accept()
 	try:
 		print('connection from', client_address)
-		# Receive the data in small chunks and retransmit it
-		# TODO: Add diagonal control
+		# start loop of receiving data from connection
 		while True:
+			# Receive the data in small chunks and act accordingly
 			data = connection.recv(16)
+
+			print (data)
 			if data == b'left':
-				print("turning left")
-				move_hor(SPEED,0.5)
+				move_left(SPEED, TIME)
+			elif data == b'right': # moving right is moving backwards in the move_left function
+				move_left(-SPEED, TIME)
+			elif data == b'up':
+				move_up(SPEED, TIME)
+			elif data == b'down': # moving down is moving backwards in the move_up function
+				move_up(-SPEED, TIME)
+			
+			elif data == b'up-right':
+				move_left(-SPEED, TIME)
+				move_up(SPEED, TIME)
+				
+			elif data == b'down-left': # moving down-left is moving backwards in the move_up_right function
+				move_left(SPEED, TIME)
+				move_up(-SPEED, TIME)
 
-			if data == b'right':
-				print ('turning right')
-				move_hor(-SPEED,0.5)
+			elif data == b'up-left':
+				move_left(SPEED, TIME)
+				move_up(SPEED, TIME)
 
-			if data == b'up':
-				print('turning up'):
-				move_vert(SPEED, 0.5)
+			elif data == b'down-right': # moving down-right is moving backwards in the move_up_left function
+				move_left(-SPEED, TIME)
+				move_up(-SPEED, TIME)
 
-			if data == b'down':
-				print('turning down'):
-				move_vert(-SPEED, 0.5)
-
-			if data == b'close':
+			elif data == b'close':
 				break
+			
+			else:
+				print("COMMAND UNRECOGNIZED!")
+
 
 	finally:
 		print('Closing connection', client_address)
