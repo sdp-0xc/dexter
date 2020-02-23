@@ -1,5 +1,6 @@
 // buttons
 const connect = document.getElementById('connect');
+const disconnect = document.getElementById('disconnect');
 const upLeftBtn = document.getElementById('upLeft');
 const upBtn = document.getElementById('up');
 const upRightBtn = document.getElementById('upRight');
@@ -9,6 +10,7 @@ const rightBtn = document.getElementById('right');
 const downLeftBtn = document.getElementById('downLeft');
 const downBtn = document.getElementById('down');
 const downRightBtn = document.getElementById('downRight');
+const manualControlBtn = document.getElementById('manualControlButton');
 
 const xhttp = new XMLHttpRequest();
 
@@ -23,16 +25,71 @@ connect.addEventListener('click', () => {
   // Removing d-none displays previously hidden element
   loading.classList.remove('d-none');
 
+
   // Spinner spins for 2 seconds to indicate loading
   // Then functionality is displayed
   setTimeout(() => {
     const manualControlBody = document.getElementById('manualControlBody');
-    const navigation = document.getElementById('navigation');
+    const mobileNav = document.getElementById('mobileNav');
 
     loading.classList.add('d-none');
-    manualControlBody.classList.remove('d-none');
-    navigation.classList.remove('d-none');
+    manualControlBody.classList.add('d-md-block');
+    mobileNav.classList.remove('d-none');
+    mobileNav.classList.add('d-md-none');
+
+    if (window.innerWidth >= 768) {
+      const navigation = document.getElementById('navigation');
+      navigation.classList.remove('d-none');
+    }
   }, 2000);
+});
+
+disconnect.addEventListener('click', () => {
+  const initialDisplay = document.getElementById('initialDisplay');
+  const loading = document.getElementById('loading');
+
+  // Adding d-none to classList hides element with its content
+  mobileNav.classList.add('d-none');
+
+  // Removing d-none displays previously hidden element
+  loading.classList.remove('d-none');
+
+
+  // Spinner spins for 2 seconds to indicate loading
+  // Then functionality is displayed
+  setTimeout(() => {
+    loading.classList.add('d-none');
+    initialDisplay.classList.remove('d-none');
+    if (window.innerWidth >= 768) {
+      const navigation = document.getElementById('navigation');
+      navigation.classList.remove('d-none');
+    }
+  }, 2000);
+  
+});
+
+manualControlBtn.addEventListener('click', () => {	
+		if (window.innerWidth < 768 ) {
+			mobileNav.classList.add('d-none');
+			manualControlBody.classList.remove('d-none');
+			const cssMenu = document.getElementById('cssmenu');
+			cssMenu.classList.remove('d-none');
+		}
+	}	
+);
+
+window.addEventListener('resize', () => {
+  const initialDisplay = document.getElementById('initialDisplay');
+  const navigation = document.getElementById('navigation');
+  if (window.innerWidth >= 768 && initialDisplay.classList.contains('d-none')) {
+    navigation.classList.remove('d-none');
+    initialDisplay.parentElement.parentElement.classList.remove('d-none');
+    initialDisplay.parentElement.parentElement.classList.add('d-flex');
+  } else if (initialDisplay.classList.contains('d-none')) {
+    navigation.classList.add('d-none');
+    initialDisplay.parentElement.parentElement.classList.remove('d-flex');
+    initialDisplay.parentElement.parentElement.classList.add('d-none');
+  }
 });
 
 // Event Listeners for buttons in manual control
