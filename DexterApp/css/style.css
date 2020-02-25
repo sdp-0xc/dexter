@@ -15,11 +15,60 @@ body {
   padding: 10px;
 }
 
+#upLeft:focus,
+#upLeft.focus {
+  box-shadow: -0.2rem -0.2rem 0 1px rgba(82, 88, 93, 0.5);
+}
+
+#up:focus,
+#up.focus {
+  box-shadow: 0 -0.2rem 0 1px rgba(82, 88, 93, 0.5);
+}
+
+#upRight:focus,
+#upRight.focus {
+  box-shadow: 0.2rem -0.2rem 0 1px rgba(82, 88, 93, 0.5);
+}
+
+#left:focus,
+#left.focus {
+  box-shadow: -0.2rem 0 0 1px rgba(82, 88, 93, 0.5);
+}
+
+#stop:focus,
+#stop.focus {
+  box-shadow: 0 0 0 0;
+}
+
+#right:focus,
+#right.focus {
+  box-shadow: 0.2rem 0 0 1px rgba(82, 88, 93, 0.5);
+}
+
+#downLeft:focus,
+#downLeft.focus {
+  box-shadow: -0.2rem 0.2rem 0 1px rgba(82, 88, 93, 0.5);
+}
+
+#down:focus,
+#down.focus {
+  box-shadow: 0 0.2rem 0 1px rgba(82, 88, 93, 0.5);
+}
+
+#downRight:focus,
+#downRight.focus {
+  box-shadow: 0.2rem 0.2rem 0 1px rgba(82, 88, 93, 0.5);
+}
+
 .card {
   border-radius: 3px;
 }
 
 .btn {
+  border-radius: 3px;
+}
+
+.btn-dark {
   border-radius: 0;
 }
 
@@ -52,12 +101,63 @@ body {
   border-color: #0033dc;
 }
 
+.nav-link:hover {
+  border-bottom: 0px;
+}
+
+@media (max-width: 780px) and (min-width: 768px) {
+  .nav-link {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
+
+@media (max-width: 792px) and (min-width: 781px) {
+  .nav-link {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
+
+@media (max-width: 805px) and (min-width: 793px) {
+  .nav-link {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+@media (max-width: 818px) and (min-width: 806px) {
+  .nav-link {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+}
+
+@media (max-width: 818px) and (min-width: 806px) {
+  .nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 831px) and (min-width: 819px) {
+  .nav-link {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+}
+
+@media (min-width: 832px) {
+  .nav-link {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
 .form-group {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
-
 
 #cssmenu,
 #cssmenu ul,
@@ -122,7 +222,7 @@ body {
   border-radius: 5px 0 0 5px;
 }
 #cssmenu > ul > li > a:after {
-  content: "";
+  content: '';
   position: absolute;
   border-right: 1px solid;
   top: -1px;
@@ -136,7 +236,7 @@ body {
   bottom: 0;
 }
 #cssmenu > ul > li.has-sub > a:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 18px;
   right: 6px;
@@ -205,7 +305,13 @@ body {
 #cssmenu ul ul li a:hover {
   background: #3c3c3c;
   background: -moz-linear-gradient(top, #3c3c3c 0%, #222222 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3c3c3c), color-stop(100%, #222222));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, #3c3c3c),
+    color-stop(100%, #222222)
+  );
   background: -webkit-linear-gradient(top, #3c3c3c 0%, #222222 100%);
   background: -o-linear-gradient(top, #3c3c3c 0%, #222222 100%);
   background: -ms-linear-gradient(top, #3c3c3c 0%, #222222 100%);

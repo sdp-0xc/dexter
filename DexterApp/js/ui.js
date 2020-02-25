@@ -1,6 +1,7 @@
 // buttons
 const connect = document.getElementById('connect');
 const disconnect = document.getElementById('disconnect');
+const disconnectLG = document.getElementById('disconnectLG');
 const upLeftBtn = document.getElementById('upLeft');
 const upBtn = document.getElementById('up');
 const upRightBtn = document.getElementById('upRight');
@@ -11,11 +12,14 @@ const downLeftBtn = document.getElementById('downLeft');
 const downBtn = document.getElementById('down');
 const downRightBtn = document.getElementById('downRight');
 const manualControlBtn = document.getElementById('manualControlButton');
+const retrunBtn = document.getElementById('returnBtn');
+let currentTab = 'menu';
 
 const xhttp = new XMLHttpRequest();
 
 // Display available functionality when connection is established
 connect.addEventListener('click', () => {
+  startConnection();
   const initialDisplay = document.getElementById('initialDisplay');
   const loading = document.getElementById('loading');
 
@@ -24,7 +28,6 @@ connect.addEventListener('click', () => {
 
   // Removing d-none displays previously hidden element
   loading.classList.remove('d-none');
-
 
   // Spinner spins for 2 seconds to indicate loading
   // Then functionality is displayed
@@ -40,55 +43,104 @@ connect.addEventListener('click', () => {
     if (window.innerWidth >= 768) {
       const navigation = document.getElementById('navigation');
       navigation.classList.remove('d-none');
+    } else {
+      initialDisplay.parentElement.parentElement.classList.remove('d-flex');
+      initialDisplay.parentElement.parentElement.classList.add('d-none');
     }
   }, 2000);
 });
 
+// Disconnect via button in mobile menu
 disconnect.addEventListener('click', () => {
+  endConnection();
   const initialDisplay = document.getElementById('initialDisplay');
   const loading = document.getElementById('loading');
+  const mobileNav = document.getElementById('mobileNav');
+  const manualControlBody = document.getElementById('manualControlBody');
 
-  // Adding d-none to classList hides element with its content
   mobileNav.classList.add('d-none');
+  initialDisplay.parentElement.parentElement.classList.remove('d-none');
+  initialDisplay.parentElement.parentElement.classList.add('d-flex');
+  manualControlBody.classList.remove('d-md-block');
+  manualControlBody.classList.add('d-none');
+  currentTab = 'menu';
 
-  // Removing d-none displays previously hidden element
   loading.classList.remove('d-none');
 
-
-  // Spinner spins for 2 seconds to indicate loading
-  // Then functionality is displayed
+  // Return to initial screen
   setTimeout(() => {
     loading.classList.add('d-none');
     initialDisplay.classList.remove('d-none');
-    if (window.innerWidth >= 768) {
-      const navigation = document.getElementById('navigation');
-      navigation.classList.remove('d-none');
-    }
   }, 2000);
-  
 });
 
-manualControlBtn.addEventListener('click', () => {	
-		if (window.innerWidth < 768 ) {
-			mobileNav.classList.add('d-none');
-			manualControlBody.classList.remove('d-none');
-			const cssMenu = document.getElementById('cssmenu');
-			cssMenu.classList.remove('d-none');
-		}
-	}	
-);
-
-window.addEventListener('resize', () => {
+disconnectLG.addEventListener('click', () => {
+  endConnection();
   const initialDisplay = document.getElementById('initialDisplay');
+  const loading = document.getElementById('loading');
   const navigation = document.getElementById('navigation');
-  if (window.innerWidth >= 768 && initialDisplay.classList.contains('d-none')) {
+  const manualControlBody = document.getElementById('manualControlBody');
+  const mobileNav = document.getElementById('mobileNav');
+
+  mobileNav.classList.add('d-none');
+  navigation.classList.add('d-none');
+  manualControlBody.classList.remove('d-md-block');
+  manualControlBody.classList.add('d-none');
+  currentTab = 'menu';
+
+  loading.classList.remove('d-none');
+
+  // Return to initial screen
+  setTimeout(() => {
+    loading.classList.add('d-none');
+    initialDisplay.classList.remove('d-none');
+  }, 2000);
+});
+
+retrunBtn.addEventListener('click', () => {
+  initialDisplay.parentElement.parentElement.classList.add('d-none');
+  initialDisplay.parentElement.parentElement.classList.remove('d-flex');
+  manualControlBody.classList.add('d-none');
+  mobileNav.classList.remove('d-none');
+  currentTab = 'menu';
+});
+
+manualControlBtn.addEventListener('click', () => {
+  // const cssMenu = document.getElementById('cssmenu');
+  // cssMenu.classList.remove('d-none');
+  mobileNav.classList.add('d-none');
+  initialDisplay.parentElement.parentElement.classList.remove('d-none');
+  initialDisplay.parentElement.parentElement.classList.add('d-flex');
+  manualControlBody.classList.remove('d-none');
+  currentTab = 'manualControl';
+});
+
+window.addEventListener('resize', e => {
+  const initialDisplay = document.getElementById('initialDisplay');
+  const loading = document.getElementById('loading');
+  const navigation = document.getElementById('navigation');
+  if (
+    window.innerWidth >= 768 &&
+    initialDisplay.classList.contains('d-none') &&
+    loading.classList.contains('d-none')
+  ) {
     navigation.classList.remove('d-none');
     initialDisplay.parentElement.parentElement.classList.remove('d-none');
     initialDisplay.parentElement.parentElement.classList.add('d-flex');
-  } else if (initialDisplay.classList.contains('d-none')) {
+  } else if (
+    initialDisplay.classList.contains('d-none') &&
+    loading.classList.contains('d-none')
+  ) {
     navigation.classList.add('d-none');
-    initialDisplay.parentElement.parentElement.classList.remove('d-flex');
-    initialDisplay.parentElement.parentElement.classList.add('d-none');
+    if (currentTab === 'menu') {
+      mobileNav.classList.remove('d-none');
+      initialDisplay.parentElement.parentElement.classList.remove('d-flex');
+      initialDisplay.parentElement.parentElement.classList.add('d-none');
+    } else {
+      mobileNav.classList.add('d-none');
+      initialDisplay.parentElement.parentElement.classList.remove('d-none');
+      initialDisplay.parentElement.parentElement.classList.add('d-flex');
+    }
   }
 });
 
@@ -152,10 +204,33 @@ document.addEventListener('keydown', e => {
   }
 });
 
+function startConnection() {
+  const url = '/connect';
+
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+
+  const data = {
+    command: 'connect'
+  };
+  xhttp.send(JSON.stringify(data));
+}
+
+function endConnection() {
+  const url = '/disconnect';
+
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+
+  const data = {
+    command: 'disconnect'
+  };
+  xhttp.send(JSON.stringify(data));
+}
+
 // Sends JSON object with 'command' field. 'command' is string that indicates direction of movement.
 function sendCommand(direction) {
-  // TO DO: ADD URL
-  const url = '';
+  const url = '/send';
 
   xhttp.open('POST', url, true);
   xhttp.setRequestHeader('Content-type', 'application/json');
@@ -166,3 +241,7 @@ function sendCommand(direction) {
 
   xhttp.send(JSON.stringify(data));
 }
+
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
