@@ -238,7 +238,18 @@ function sendCommand(direction) {
   const data = {
     command: direction
   };
+  xhttp.send(JSON.stringify(data));
+}
 
+function startConnection() {
+  const url = '/connect';
+
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+
+  const data = {
+    command: "connect"
+  };
   xhttp.send(JSON.stringify(data));
 }
 
