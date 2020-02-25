@@ -182,7 +182,7 @@ downRightBtn.addEventListener('click', () => {
 });
 
 //Event on pressing arrow keys
-document.addEventListener('keydown', e => {
+document.addEventListener('keyup', e => {
   let direction;
   switch (e.keyCode) {
     case 38:
