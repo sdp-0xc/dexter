@@ -37,15 +37,11 @@ def home():
 
 
 # Gets request from the UI 
-# TODO: Add a close connection button in UI and bind 
-        # "close" to close connection rather than stop
 @app.route("/send", methods=["POST"])
 def get_request():
     if flask.request.method == 'POST':
         command = flask.request.get_json()
         print(command["command"])
-        if str(command["command"]) == "stop":
-           close_connection()
         else:
             on_press(command["command"])
         return("sent")
@@ -65,8 +61,8 @@ def on_press(key):
     else:
         print ('Unexpected key was pressed: {0}'.format(key))
 
-# TODO: Set up close connection button in UI
-# @app.route("/close", methods = ["POST"])
+
+@app.route("/close", methods = ["POST"])
 def close_connection():
     print('closing socket')
     sock.sendall(b'close')
