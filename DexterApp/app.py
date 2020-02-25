@@ -62,7 +62,7 @@ def on_press(key):
         print ('Unexpected key was pressed: {0}'.format(key))
 
 
-@app.route("/close", methods = ["POST"])
+@app.route("/disconnect", methods = ["POST"])
 def close_connection():
     print('closing socket')
     sock.sendall(b'close')
