@@ -42,8 +42,7 @@ def get_request():
     if flask.request.method == 'POST':
         command = flask.request.get_json()
         print(command["command"])
-        else:
-            on_press(command["command"])
+        on_press(command["command"])
         return("sent")
     return("invalid HTTP method")
 
