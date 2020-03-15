@@ -12,7 +12,14 @@ const downLeftBtn = document.getElementById('downLeft');
 const downBtn = document.getElementById('down');
 const downRightBtn = document.getElementById('downRight');
 const manualControlBtn = document.getElementById('manualControlButton');
-const retrunBtn = document.getElementById('returnBtn');
+const manualControlBtnBig = document.getElementById('manualControlButtonBig');
+const returnBtn = document.getElementById('returnBtn');
+const returnBtnErase = document.getElementById('returnBtnErase');
+const eraseBtn = document.getElementById('eraseButton');
+const eraseBtnBig = document.getElementById('eraseButtonBig');
+const eraseCircle = document.getElementById('eraseCircle');
+const stopCircle = document.getElementById('stopCircle');
+
 let currentTab = 'menu';
 
 const xhttp = new XMLHttpRequest();
@@ -34,6 +41,7 @@ connect.addEventListener('click', () => {
   setTimeout(() => {
     const manualControlBody = document.getElementById('manualControlBody');
     const mobileNav = document.getElementById('mobileNav');
+	
 
     loading.classList.add('d-none');
     manualControlBody.classList.add('d-md-block');
@@ -57,12 +65,15 @@ disconnect.addEventListener('click', () => {
   const loading = document.getElementById('loading');
   const mobileNav = document.getElementById('mobileNav');
   const manualControlBody = document.getElementById('manualControlBody');
+	
 
   mobileNav.classList.add('d-none');
   initialDisplay.parentElement.parentElement.classList.remove('d-none');
   initialDisplay.parentElement.parentElement.classList.add('d-flex');
   manualControlBody.classList.remove('d-md-block');
   manualControlBody.classList.add('d-none');
+  eraseBody.classList.remove('d-md-block');
+  eraseBody.classList.add('d-none');
   currentTab = 'menu';
 
   loading.classList.remove('d-none');
@@ -72,6 +83,11 @@ disconnect.addEventListener('click', () => {
     loading.classList.add('d-none');
     initialDisplay.classList.remove('d-none');
   }, 2000);
+  
+  // Return our program to initial state
+  
+  eraseCircle.classList.remove('d-none');
+  stopCircle.classList.add('d-none');
 });
 
 disconnectLG.addEventListener('click', () => {
@@ -86,6 +102,8 @@ disconnectLG.addEventListener('click', () => {
   navigation.classList.add('d-none');
   manualControlBody.classList.remove('d-md-block');
   manualControlBody.classList.add('d-none');
+  eraseBody.classList.remove('d-md-block');
+  eraseBody.classList.add('d-none');
   currentTab = 'menu';
 
   loading.classList.remove('d-none');
@@ -95,14 +113,83 @@ disconnectLG.addEventListener('click', () => {
     loading.classList.add('d-none');
     initialDisplay.classList.remove('d-none');
   }, 2000);
+  
+  // Return our program to initial state
+  
+  eraseBtnBig.classList.remove("active");
+  eraseBtnBig.classList.remove("text-light");
+  manualControlBtnBig.classList.add("active");
+  manualControlBtnBig.classList.add("text-light");
+  eraseCircle.classList.remove('d-none');
+  stopCircle.classList.add('d-none');
+  
 });
 
-retrunBtn.addEventListener('click', () => {
+eraseBtnBig.addEventListener('click', () => {
+	if (currentTab !== 'erase') {
+	  currentTab = 'erase';
+	  
+      eraseBtnBig.classList.add("active");
+	  eraseBtnBig.classList.add("text-light");
+	  manualControlBtnBig.classList.remove("active");
+	  manualControlBtnBig.classList.remove("text-light");
+	  
+	  eraseBody.classList.remove('d-none');
+	  eraseBody.classList.add('d-md-block');
+	  manualControlBody.classList.add('d-none');
+	  manualControlBody.classList.remove('d-md-block');
+	  
+    }
+});
+
+manualControlBtnBig.addEventListener('click', () => {
+	if (currentTab !== 'manualControl') {
+	  currentTab = 'manualControl';
+	  
+      manualControlBtnBig.classList.add("active");
+	  manualControlBtnBig.classList.add("text-light");
+	  eraseBtnBig.classList.remove("active");
+	  eraseBtnBig.classList.remove("text-light");
+	  
+	  manualControlBody.classList.remove('d-none');
+	  manualControlBody.classList.add('d-md-block');
+	  eraseBody.classList.add('d-none');
+	  eraseBody.classList.remove('d-md-block');
+	  
+	  // If user opens a seperate functionality while dexter is
+	  // cleaning the board, dexter should stop cleaning and
+	  // await further instructions (should discuss further
+	  // and most likely change this behaviour)
+	  eraseCircle.classList.remove('d-none');
+	  stopCircle.classList.add('d-none')
+    }
+});
+
+returnBtn.addEventListener('click', () => {
+	
   initialDisplay.parentElement.parentElement.classList.add('d-none');
   initialDisplay.parentElement.parentElement.classList.remove('d-flex');
   manualControlBody.classList.add('d-none');
+  eraseBody.classList.add('d-none');
   mobileNav.classList.remove('d-none');
   currentTab = 'menu';
+});
+
+returnBtnErase.addEventListener('click', () => {
+	
+  currentTab = 'menu';
+  initialDisplay.parentElement.parentElement.classList.add('d-none');
+  initialDisplay.parentElement.parentElement.classList.remove('d-flex');
+  manualControlBody.classList.add('d-none');
+  eraseBody.classList.add('d-none');
+  mobileNav.classList.remove('d-none');
+  
+  // If user opens a seperate functionality while dexter is
+  // cleaning the board, dexter should stop cleaning and
+  // await further instructions (should discuss further
+  // and most likely change this behaviour)
+  eraseCircle.classList.remove('d-none');
+  stopCircle.classList.add('d-none')
 });
 
 manualControlBtn.addEventListener('click', () => {
@@ -115,6 +202,18 @@ manualControlBtn.addEventListener('click', () => {
   currentTab = 'manualControl';
 });
 
+eraseBtn.addEventListener('click', () => {
+  // const cssMenu = document.getElementById('cssmenu');
+  // cssMenu.classList.remove('d-none');
+  mobileNav.classList.add('d-none');
+  initialDisplay.parentElement.parentElement.classList.remove('d-none');
+  initialDisplay.parentElement.parentElement.classList.add('d-flex');
+  eraseBody.classList.remove('d-none');
+  currentTab = 'erase';
+});
+
+
+
 window.addEventListener('resize', e => {
   const initialDisplay = document.getElementById('initialDisplay');
   const loading = document.getElementById('loading');
@@ -123,20 +222,49 @@ window.addEventListener('resize', e => {
     window.innerWidth >= 768 &&
     initialDisplay.classList.contains('d-none') &&
     loading.classList.contains('d-none')
-  ) {
+  ) 
+  {
     navigation.classList.remove('d-none');
     initialDisplay.parentElement.parentElement.classList.remove('d-none');
     initialDisplay.parentElement.parentElement.classList.add('d-flex');
-  } else if (
+	if (currentTab === 'erase'){
+	  eraseBtnBig.classList.add("active");
+	  eraseBtnBig.classList.add("text-light");
+	  manualControlBtnBig.classList.remove("active");
+	  manualControlBtnBig.classList.remove("text-light");
+	  
+	  eraseBody.classList.remove('d-none');
+	  eraseBody.classList.add('d-md-block');
+	  manualControlBody.classList.add('d-none');
+	  manualControlBody.classList.remove('d-md-block');
+	}
+	else if (currentTab === 'menu' || currentTab === 'manualControl'){
+	  manualControlBtnBig.classList.add("active");
+	  manualControlBtnBig.classList.add("text-light");
+	  eraseBtnBig.classList.remove("active");
+	  eraseBtnBig.classList.remove("text-light");
+	  
+	  manualControlBody.classList.remove('d-none');
+	  manualControlBody.classList.add('d-md-block');
+	  eraseBody.classList.add('d-none');
+	  eraseBody.classList.remove('d-md-block');
+	}
+  } 
+  else if (
     initialDisplay.classList.contains('d-none') &&
     loading.classList.contains('d-none')
-  ) {
+  ) 
+  {
+	
     navigation.classList.add('d-none');
-    if (currentTab === 'menu') {
+    if (currentTab === 'menu') 
+	{
       mobileNav.classList.remove('d-none');
       initialDisplay.parentElement.parentElement.classList.remove('d-flex');
       initialDisplay.parentElement.parentElement.classList.add('d-none');
-    } else {
+    } 
+	else 
+	{
       mobileNav.classList.add('d-none');
       initialDisplay.parentElement.parentElement.classList.remove('d-none');
       initialDisplay.parentElement.parentElement.classList.add('d-flex');
@@ -144,82 +272,89 @@ window.addEventListener('resize', e => {
   }
 });
 
+// Event Listeners for buttons in the erase section
+
+eraseCircle.addEventListener('click', () => {
+  eraseCircle.classList.add('d-none');
+  stopCircle.classList.remove('d-none');
+});
+
+stopCircle.addEventListener('click', () => {
+  eraseCircle.classList.remove('d-none');
+  stopCircle.classList.add('d-none');
+});
+
 // Event Listeners for buttons in manual control
+// Pressing a button "activates" manualControl 
+// Mode, where resizing the interface won't throw
+// the user back to menu
 upLeftBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('up-left');
 });
 
 upBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('up');
 });
 
 upRightBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('up-right');
 });
 
 leftBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('left');
 });
 
 stopBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('stop');
 });
 
 rightBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('right');
 });
 
 downLeftBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('down-left');
 });
 
 downBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('down');
 });
 
 downRightBtn.addEventListener('click', () => {
+  currentTab = 'manualControl';
   sendCommand('down-right');
 });
 
-// Stores arrows that the user pressed in 0.05 second.
-let arrowsPressed = {};
-
-// Handles pressing arrows on keyboard
-onkeydown = onkeyup = function(e) {
+//Event on pressing arrow keys
+document.addEventListener('keydown', e => {
   let direction;
-  e = e || event;
-
-  // Events occur only when key is released
-  arrowsPressed[e.keyCode] = e.type == 'keyup';
-
-  // Gathers pressed keys for 0.05 seconds.
-  setTimeout(() => {
-    if (Object.keys(arrowsPressed).length > 2) {
-    } else if (arrowsPressed[38] && arrowsPressed[37]) {
-      direction = 'up-left';
-    } else if (arrowsPressed[38] && arrowsPressed[39]) {
-      direction = 'up-right';
-    } else if (arrowsPressed[40] && arrowsPressed[37]) {
-      direction = 'down-left';
-    } else if (arrowsPressed[40] && arrowsPressed[39]) {
-      direction = 'down-right';
-    } else if (arrowsPressed[38]) {
+  switch (e.keyCode) {
+    case 38:
       direction = 'up';
-    } else if (arrowsPressed[40]) {
+      break;
+    case 40:
       direction = 'down';
-    } else if (arrowsPressed[37]) {
+      break;
+    case 37:
       direction = 'left';
-    } else if (arrowsPressed[39]) {
+      break;
+    case 39:
       direction = 'right';
-    }
+      break;
+  }
 
-    if (direction) {
-      sendCommand(direction);
-    }
-
-    arrowsPressed = {};
-  }, 50);
-};
+  if (direction) {
+    sendCommand(direction);
+  }
+});
 
 function startConnection() {
   const url = '/connect';
@@ -254,6 +389,18 @@ function sendCommand(direction) {
 
   const data = {
     command: direction
+  };
+  xhttp.send(JSON.stringify(data));
+}
+
+function startConnection() {
+  const url = '/connect';
+
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+
+  const data = {
+    command: "connect"
   };
   xhttp.send(JSON.stringify(data));
 }
