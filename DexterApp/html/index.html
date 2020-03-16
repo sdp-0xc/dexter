@@ -32,10 +32,9 @@
                 </button>
               </div>
             </li>
-            <li class="nav-item col-md-4" data-toggle="tooltip" data-placement="top"
-              title="Sorry, the functionality is not yet available.">
+            <li class="nav-item col-md-4">
               <div class="form-group">
-                <button class="btn btn-block btn-outline-secondary" disabled>
+                <button id="eraseButton" class="btn btn-block btn-outline-primary">
                   <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                     viewBox="0 0 392.000000 381.000000" preserveAspectRatio="xMidYMid meet">
                     <metadata>
@@ -165,7 +164,7 @@
     <!-- Navigation bar with tabs at the top -->
     <ul id="navigation" class="nav nav-tabs d-none">
       <li class="nav-item">
-        <a class="nav-link active text-light" href="#">
+        <a id = "manualControlButtonBig" class="nav-link active text-light" href="#">
           <svg class="bi bi-wrench" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -175,9 +174,8 @@
           Manual Control
         </a>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="top"
-        title="Sorry, the functionality is not yet available.">
-        <a class="nav-link disabled" href="#">
+      <li class="nav-item">
+        <a id = "eraseButtonBig" class="nav-link" href="#">
           <?xml version="1.0" standalone="no"?>
           <!DOCTYPE svg
             PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
@@ -310,9 +308,8 @@
           <div class="row justify-content-center align-items-center">
             <div class="col-md-4">
               <h5 class="text-center text-dark">
-                Press <span class="text-bold" style="color: #0033dc;">button</span><span class="d-none d-md-block">or
-                  <span class="text-bold" style="color: #0033dc;">keyboard arrow</span></span> to move Dexter in the
-                chosen direction.
+                Choose an <span class="text-bold" style="color: #0033dc;">arrow</span> to move Dexter in a
+                certain direction.
               </h5>
             </div>
             <div class="col-md-8">
@@ -418,6 +415,33 @@
             </div>
           </div>
         </div>
+		
+		<div id="eraseBody" class="d-none">
+          <div class="row justify-content-end align-items-center mb-3 d-md-none">
+            <button id="returnBtnErase" class="btn btn-light border border-dark" style="padding-left: 10px;">
+              <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M4.5 13.5A.5.5 0 015 13h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-4A.5.5 0 015 9h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-4A.5.5 0 015 5h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5z"
+                  clip-rule="evenodd" />
+              </svg>Menu</button>
+          </div>
+          <div class="row justify-content-center align-items-center">
+            <div class="col-md-4">
+              <h5 class="text-center text-dark">
+                Press <span class="text-bold" style="color: #0033dc;">ERASE</span> to start cleaning the whiteboard. Press
+                  <span class="text-bold" style="color: red;">STOP</span> to interrupt Dexter at any time.
+              </h5>
+            </div>
+			<div class="col-md-8">
+              <div class="row justify-content-center align-items-center">
+				<button type="button" id = "eraseCircle" class="btn btn-primary btn-circle btn-xl" style="background-color: #0033dc">ERASE</button>
+				<button type="button" id = "stopCircle" class="btn btn-primary btn-circle btn-xl d-none" style="background-color: red">STOP</button>
+			  </div>
+			</div>
+          </div>
+        </div>
+		
       </div>
     </div>
   </div>
