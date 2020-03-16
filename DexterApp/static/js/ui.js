@@ -181,28 +181,45 @@ downRightBtn.addEventListener('click', () => {
   sendCommand('down-right');
 });
 
-//Event on pressing arrow keys
-document.addEventListener('keydown', e => {
-  let direction;
-  switch (e.keyCode) {
-    case 38:
-      direction = 'up';
-      break;
-    case 40:
-      direction = 'down';
-      break;
-    case 37:
-      direction = 'left';
-      break;
-    case 39:
-      direction = 'right';
-      break;
-  }
+// Stores arrows that the user pressed in 0.05 second.
+let arrowsPressed = {};
 
-  if (direction) {
-    sendCommand(direction);
-  }
-});
+// Handles pressing arrows on keyboard
+onkeydown = onkeyup = function(e) {
+  let direction;
+  e = e || event;
+
+  // Events occur only when key is released
+  arrowsPressed[e.keyCode] = e.type == 'keyup';
+
+  // Gathers pressed keys for 0.05 seconds.
+  setTimeout(() => {
+    if (Object.keys(arrowsPressed).length > 2) {
+    } else if (arrowsPressed[38] && arrowsPressed[37]) {
+      direction = 'up-left';
+    } else if (arrowsPressed[38] && arrowsPressed[39]) {
+      direction = 'up-right';
+    } else if (arrowsPressed[40] && arrowsPressed[37]) {
+      direction = 'down-left';
+    } else if (arrowsPressed[40] && arrowsPressed[39]) {
+      direction = 'down-right';
+    } else if (arrowsPressed[38]) {
+      direction = 'up';
+    } else if (arrowsPressed[40]) {
+      direction = 'down';
+    } else if (arrowsPressed[37]) {
+      direction = 'left';
+    } else if (arrowsPressed[39]) {
+      direction = 'right';
+    }
+
+    if (direction) {
+      sendCommand(direction);
+    }
+
+    arrowsPressed = {};
+  }, 50);
+};
 
 function startConnection() {
   const url = '/connect';
@@ -237,18 +254,6 @@ function sendCommand(direction) {
 
   const data = {
     command: direction
-  };
-  xhttp.send(JSON.stringify(data));
-}
-
-function startConnection() {
-  const url = '/connect';
-
-  xhttp.open('POST', url, true);
-  xhttp.setRequestHeader('Content-type', 'application/json');
-
-  const data = {
-    command: "connect"
   };
   xhttp.send(JSON.stringify(data));
 }
