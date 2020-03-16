@@ -92,10 +92,9 @@
                 </button>
               </div>
             </li>
-            <li class="nav-item col-md-4" data-toggle="tooltip" data-placement="top"
-              title="Sorry, the functionality is not yet available.">
+            <li class="nav-item col-md-4">
               <div class="form-group">
-                <button class="btn btn-block btn-outline-secondary" disabled>
+                <button id="photoBtn" class="btn btn-block btn-outline-primary">
                   <svg class="bi bi-image" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
@@ -164,7 +163,7 @@
     <!-- Navigation bar with tabs at the top -->
     <ul id="navigation" class="nav nav-tabs d-none">
       <li class="nav-item">
-        <a id = "manualControlButtonBig" class="nav-link active text-light" href="#">
+        <a id="manualControlTab" class="nav-link active text-light" href="#">
           <svg class="bi bi-wrench" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -227,9 +226,8 @@
           Table
         </a>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="top"
-        title="Sorry, the functionality is not yet available.">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+      <li class="nav-item">
+        <a id="photoTab" class="nav-link" style="color: #0033dc;" href="#" tabindex="-1" aria-disabled="true">
           <svg class="bi bi-image" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -243,7 +241,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a id="disconnectLG" class="nav-link text-danger" href="#">
+        <a id="disconnectTab" class="nav-link text-danger" href="#">
           <svg class="bi bi-power" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M7.578 6.437a5 5 0 104.922.044l.5-.865a6 6 0 11-5.908-.053l.486.874z"
@@ -256,7 +254,7 @@
     </ul>
 
     <!-- Holder for body of any tab -->
-    <div class="d-flex card-body justify-content-center align-items-center border-top border-dark">
+    <div class="d-flex card-body justify-content-center align-items-center border-top border-dark" style="overflow-y: auto; max-height: 475px;">
       <div class="container">
         <div id="initialDisplay">
           <div class="row justify-content-center align-items-center">
@@ -293,18 +291,45 @@
           </div>
         </div>
 
+        <div id="correct" class="d-none">
+          <div class="row justify-content-center align-items-center text-success">
+              <svg class="bi bi-check-box" width="3em" height="3em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M17.354 4.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L10 11.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M3.5 15A1.5 1.5 0 005 16.5h10a1.5 1.5 0 001.5-1.5v-5a.5.5 0 00-1 0v5a.5.5 0 01-.5.5H5a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h8a.5.5 0 000-1H5A1.5 1.5 0 003.5 5v10z" clip-rule="evenodd"/>
+              </svg>
+          </div>
+          <div class="row justify-content-center align-items-center text-success">
+              <h5>Connected successfully</h5>
+          </div>
+        </div>
+
+        <div id="incorrect" class="d-none">
+          <div class="row justify-content-center align-items-center text-danger">
+              <svg class="bi bi-x-square" width="3em" height="3em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M16 3H4a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1zM4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M9.293 10L6.646 7.354l.708-.708L10 9.293l2.646-2.647.708.708L10.707 10l2.647 2.646-.708.708L10 10.707l-2.646 2.647-.708-.707L9.293 10z" clip-rule="evenodd"/>
+              </svg>
+          </div>
+          <div class="row justify-content-center align-items-center text-danger">
+              <h5>Could not connect</h5>
+          </div>
+          <div class="row justify-content-center align-items-center text-danger">
+              <h5>Try again</h5>
+          </div>
+        </div>
+
         <!--  -->
+        <div class="row justify-content-end align-items-center mb-1 d-none">
+          <button id="returnBtn" class="btn btn-block btn-light border border-dark" style="padding-left: 10px;">
+            <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4.5 13.5A.5.5 0 015 13h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-4A.5.5 0 015 9h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-4A.5.5 0 015 5h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5z"
+                clip-rule="evenodd" />
+            </svg>Menu</button>
+        </div>
 
         <div id="manualControlBody" class="d-none">
-          <div class="row justify-content-end align-items-center mb-3 d-md-none">
-            <button id="returnBtn" class="btn btn-light border border-dark" style="padding-left: 10px;">
-              <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M4.5 13.5A.5.5 0 015 13h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-4A.5.5 0 015 9h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-4A.5.5 0 015 5h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5z"
-                  clip-rule="evenodd" />
-              </svg>Menu</button>
-          </div>
           <div class="row justify-content-center align-items-center">
             <div class="col-md-4">
               <h5 class="text-center text-dark">
@@ -415,33 +440,94 @@
             </div>
           </div>
         </div>
-		
-		<div id="eraseBody" class="d-none">
-          <div class="row justify-content-end align-items-center mb-3 d-md-none">
-            <button id="returnBtnErase" class="btn btn-light border border-dark" style="padding-left: 10px;">
-              <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M4.5 13.5A.5.5 0 015 13h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-4A.5.5 0 015 9h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-4A.5.5 0 015 5h10a.5.5 0 010 1H5a.5.5 0 01-.5-.5z"
-                  clip-rule="evenodd" />
-              </svg>Menu</button>
-          </div>
+
+		    <div id="eraseBody" class="d-none">
           <div class="row justify-content-center align-items-center">
             <div class="col-md-4">
               <h5 class="text-center text-dark">
-                Press <span class="text-bold" style="color: #0033dc;">ERASE</span> to start cleaning the whiteboard. Press
-                  <span class="text-bold" style="color: red;">STOP</span> to interrupt Dexter at any time.
+                Press
+                <span class="text-bold" style="color: #0033dc;">
+                  ERASE
+                </span>
+                to start cleaning the whiteboard. Press
+                <span class="text-bold" style="color: red;">
+                  STOP
+                </span>
+                 to interrupt Dexter at any time.
               </h5>
             </div>
-			<div class="col-md-8">
+			      <div class="col-md-8">
               <div class="row justify-content-center align-items-center">
-				<button type="button" id = "eraseCircle" class="btn btn-primary btn-circle btn-xl" style="background-color: #0033dc">ERASE</button>
-				<button type="button" id = "stopCircle" class="btn btn-primary btn-circle btn-xl d-none" style="background-color: red">STOP</button>
-			  </div>
-			</div>
+				        <button type="button" id = "eraseCircle" class="btn btn-primary btn-circle btn-xl" style="background-color: #0033dc">
+                  ERASE
+                </button>
+				        <button type="button" id = "stopCircle" class="btn btn-primary btn-circle btn-xl d-none" style="background-color: red">
+                  STOP
+                </button>
+			        </div>
+			      </div>
           </div>
         </div>
-		
+
+        <div id="photoBody" class="d-none">
+          <div class="row justify-content-center align-items-center pr-2 pl-1">
+            <div class="col-md-4">
+              <h5 class="text-center text-dark">
+                Press
+                <span class="text-bold" style="color: #0033dc;">
+                  button
+                </span>
+                to capture the view of a whiteboard. Then fill the
+                <span class="text-bold" style="color: #0033dc;">
+                  form
+                </span> to send the image to your email in JPG format.
+              </h5>
+            </div>
+            <div class="col-md-8 border border-dark mb-2" style="height: 240px; border-radius: 3px;">
+              <div class="row justify-content-center align-items-center" style="height: 100%;">
+                  <img id="snapshot" src="..."></img>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center align-items-center m-0">
+            <div class="col-md-4 mb-1 mb-md-0 pl-0 pr-0 pr-md-3">
+              <button id="takePhoto" class="btn btn-primary btn-block" style="background-color: #0033dc;">
+                <svg class="bi bi-image" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M16.002 4h-12a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1V5a1 1 0 00-1-1zm-12-1a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2h-12z" clip-rule="evenodd" />
+                  <path d="M12.648 9.646a.5.5 0 01.577-.093l3.777 1.947V16h-14v-2l2.646-2.354a.5.5 0 01.63-.062l2.66 1.773 3.71-3.71z" />
+                  <path fill-rule="evenodd" d="M6.502 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd" />
+                </svg>
+                Take Photo
+              </button>
+            </div>
+            <div class="col-md-8 p-0">
+              <form>
+                <div class="form-row">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Email</span>
+                    </div>
+                    <input type="text" id="emailInput" placeholder="Please enter email" class="form-control">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary disabled" style="border-radius: 0 3px 3px 0;" id="sendBtn" type="button">
+                        <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2.05 5.555L10 10.414l7.95-4.859A2 2 0 0016 4H4a2 2 0 00-1.95 1.555zM18 6.697l-5.875 3.59L18 13.743V6.697zm-.168 8.108l-6.675-3.926-1.157.707-1.157-.707-6.675 3.926A2 2 0 004 16h12a2 2 0 001.832-1.195zM2 13.743l5.875-3.456L2 6.697v7.046z"/>
+                        </svg>
+                        Send
+                      </button>
+                    </div>
+                    <div class="invalid-feedback mt-0">
+                      <div class="d-none d-md-block mt-md-1">
+                          Invalid email.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

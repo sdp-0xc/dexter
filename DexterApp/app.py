@@ -3,9 +3,21 @@ import os
 import socket
 import sys
 import time
+import flask_mail
 
 app = flask.Flask(__name__, template_folder = "html")
 sock = None
+
+app.config.update(dict(
+    DEBUG = True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
+    MAIL_USERNAME = 'dexterapp.noreply@gmail.com',
+    MAIL_PASSWORD = 'sdp12dexter',
+))
+
+mail = flask_mail.Mail(app)
 
 # Connect to the EV3 as a client on startup
 # TODO: Set UI to spin loading until connection is done
@@ -42,8 +54,7 @@ def get_request():
     if flask.request.method == 'POST':
         command = flask.request.get_json()
         print(command["command"])
-        else:
-            on_press(command["command"])
+        on_press(command["command"])
         return("sent")
     return("invalid HTTP method")
 
@@ -68,6 +79,32 @@ def close_connection():
     sock.sendall(b'close')
     sock.shutdown(1)
     return ("closed")
+
+
+# TO IMPLEMENT
+@app.route("/photo", methods = ["GET"])
+def take_photo():
+    print('taking photo')
+
+    # TO DO: RUN SCRIPT THAT TAKES PHOTO
+
+    # REPLACE BY LOCATION OF THE LOCATION OF FILE TAKEN FROM CAMERA
+    return ("./static/img/dexter.png")
+
+# SENDS EMAIL
+@app.route("/email", methods=["POST"])
+def send_photo():
+    if flask.request.method == 'POST':
+        command = flask.request.get_json()
+        print(command["command"])
+        msg = flask_mail.Message(subject="New whiteboard photo", recipients=[command["email"]], sender="dexterapp.noreply@gmail.com")
+
+        # TO DO: SPECIFY LOCATION AND NAME OF JPG FILE THAT HOLDS THE WHITEBOARD SNAPSHOT TAKEN FROM CAMERA
+        with app.open_resource(command["img"]) as fp:
+            msg.attach("dexter.png", "dexter/png", fp.read())
+
+        mail.send(msg)
+        return("sent")
 
 
 if __name__ == "__main__":
